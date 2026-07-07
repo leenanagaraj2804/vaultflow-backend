@@ -1,0 +1,89 @@
+package com.example.demo.model;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "tbl_transactions")
+public class Transaction {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private Double amount;
+
+    @Column(nullable = false, unique = true)
+    private String referenceId;
+
+    @ManyToOne
+    @JoinColumn(name = "source_account_id")
+    private Account sourceAccount;
+
+    @ManyToOne
+    @JoinColumn(name = "target_account_id")
+    private Account targetAccount;
+
+    @Column(nullable = false)
+    private String status; // PENDING, APPROVED, REVERSED, FAILED
+
+    public Transaction() {
+    }
+
+    public Transaction(Long id, Double amount, String referenceId, Account sourceAccount, Account targetAccount, String status) {
+        this.id = id;
+        this.amount = amount;
+        this.referenceId = referenceId;
+        this.sourceAccount = sourceAccount;
+        this.targetAccount = targetAccount;
+        this.status = status;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public String getReferenceId() {
+        return referenceId;
+    }
+
+    public void setReferenceId(String referenceId) {
+        this.referenceId = referenceId;
+    }
+
+    public Account getSourceAccount() {
+        return sourceAccount;
+    }
+
+    public void setSourceAccount(Account sourceAccount) {
+        this.sourceAccount = sourceAccount;
+    }
+
+    public Account getTargetAccount() {
+        return targetAccount;
+    }
+
+    public void setTargetAccount(Account targetAccount) {
+        this.targetAccount = targetAccount;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+}
